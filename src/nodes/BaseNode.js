@@ -1,19 +1,11 @@
 // BaseNode.js
 import React from 'react';
-import {Handle, Position} from 'reactflow';
+import {Handle} from 'reactflow';
 import {useThemeStore} from '../store';
 
 export const BaseNode = ({id, data, type, handles = []}) => {
 	const {isDarkMode} = useThemeStore();
-	const handleStyles = {
-		background: '#555',
-		width: '10px',
-		height: '10px',
-		borderRadius: '50%',
-		zIndex: 10
-	};
 
-	console.log('gandle', handles);
 	return (
 		<div
 			id={id}
@@ -36,7 +28,7 @@ export const BaseNode = ({id, data, type, handles = []}) => {
 						alignItems: 'center',
 						justifyContent: handle.position === 'left' ? 'flex-start' : 'flex-end',
 						position: 'absolute',
-						top: `${handle.position === 'right' ? index + 50 : index * 30}px`, // Adjust top position to prevent overlap
+						top: `${handle.position === 'right' ? index + 50 : index * 30}px`,
 						[handle.position]: '-10px'
 					}}>
 					<Handle

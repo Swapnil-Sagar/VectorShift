@@ -1,39 +1,36 @@
 import React from 'react';
+import {Transition} from '@headlessui/react';
 
 const Popup = ({isVisible, onClose, data}) => {
-	if (!isVisible) return null;
-
 	return (
-		<div
-			className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300'
-			style={{
-				opacity: isVisible ? 1 : 0,
-				pointerEvents: isVisible ? 'auto' : 'none'
-			}}>
-			<div className='bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 p-4 rounded-lg shadow-lg w-80 transition-transform duration-300'>
-				<div className='flex items-center justify-between'>
-					<h2 className='text-xl font-bold'>Pipeline Status</h2>
-				</div>
-				<div className='mt-4 grid grid-cols-1 gap-2'>
-					<p>
-						<strong>Number of Nodes:</strong> {data.num_nodes}
+		<Transition
+			show={isVisible}
+			enter='transition-opacity duration-200'
+			enterFrom='opacity-0'
+			enterTo='opacity-100'
+			leave='transition-opacity duration-200'
+			leaveFrom='opacity-100'
+			leaveTo='opacity-0'>
+			<div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-60'>
+				<div className='bg-white dark:bg-gray-800 border-spacing-2 text-gray-900 dark:text-gray-100 p-6 pb-4 rounded-lg shadow-lg w-96 max-w-sm transform transition-transform duration-300'>
+					<h2 className='text-2xl w-full text-center font-semibold mb-6'>Pipeline Status</h2>
+					<p className='mb-2'>
+						<strong>Number of Nodes:</strong> {data?.num_nodes}
 					</p>
-					<p>
-						<strong>Number of Edges:</strong> {data.num_edges}
+					<p className='mb-2'>
+						<strong>Number of Edges:</strong> {data?.num_edges}
 					</p>
-					<p>
-						<strong>Is DAG:</strong> {data.is_dag ? 'Yes' : 'No'}
+					<p className='mb-4'>
+						<strong>Is DAG:</strong> {data?.is_dag ? 'Yes' : 'No'}
 					</p>
-				</div>
-				<div className='mt-4 flex justify-end'>
 					<button
 						onClick={onClose}
-						className='bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors duration-300'>
+						className='w-full mt-4 disabled:from-gray-500 disabled:to-gray-800 disabled:shadow-none  disabled:cursor-not-allowed text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 disabled:shadow-gray-500/50 dark:disabled:shadow-none'>
 						Close
 					</button>
 				</div>
 			</div>
-		</div>
+		</Transition>
 	);
 };
 

@@ -1,4 +1,3 @@
-// textNode.js
 import React, {useState, useRef, useEffect} from 'react';
 import {Position} from 'reactflow';
 import {BaseNode} from './BaseNode';
@@ -13,8 +12,8 @@ export const TextNode = ({id, data}) => {
 
 	const adjustTextAreaHeight = () => {
 		if (textareaRef.current) {
-			textareaRef.current.style.height = 'auto'; // Reset height
-			textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`; // Set height based on scrollHeight
+			textareaRef.current.style.height = 'auto';
+			textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
 		}
 	};
 
@@ -28,11 +27,9 @@ export const TextNode = ({id, data}) => {
 		setCurrText(newText);
 		updateNodeField(id, 'text', newText);
 
-		// Detect variables in the text and update node handles
 		const variableMatches = newText.match(/{{\s*([\w]+)\s*}}/g) || [];
 		const variableNames = variableMatches.map(variable => variable.replace(/[{}]/g, '').trim());
 
-		// Update node handles if needed
 		const existingHandles = data.handles || [];
 		const newHandles = variableNames.map((variableName, index) => ({
 			type: 'source',
@@ -42,7 +39,6 @@ export const TextNode = ({id, data}) => {
 			style: {background: '#555', width: '10px', height: '10px', top: `${(index + 1) * 20}px`}
 		}));
 
-		// Only update if handles change
 		if (JSON.stringify(newHandles) !== JSON.stringify(existingHandles)) {
 			updateNodeField(id, 'handles', newHandles);
 		}

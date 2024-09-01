@@ -1,5 +1,3 @@
-// toolbar.js
-
 import DarkModeToggle from './darkMode';
 import {DraggableNode} from './draggableNode';
 
