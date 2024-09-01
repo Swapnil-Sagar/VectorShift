@@ -1,10 +1,6 @@
-// ui.js
-// Displays the drag-and-drop UI
-// --------------------------------------------------
-
 import {useState, useRef, useCallback} from 'react';
 import ReactFlow, {Controls, Background, MiniMap} from 'reactflow';
-import {useStore} from './store';
+import {useStore, useThemeStore} from './store';
 import {shallow} from 'zustand/shallow';
 import {InputNode} from './nodes/inputNode';
 import {LLMNode} from './nodes/llmNode';
@@ -45,6 +41,7 @@ const selector = state => ({
 export const PipelineUI = () => {
 	const reactFlowWrapper = useRef(null);
 	const [reactFlowInstance, setReactFlowInstance] = useState(null);
+	const {isDarkMode} = useThemeStore();
 	const {nodes, edges, getNodeID, addNode, onNodesChange, onEdgesChange, onConnect} = useStore(selector, shallow);
 
 	const getInitNodeData = (nodeID, type) => {
@@ -61,7 +58,6 @@ export const PipelineUI = () => {
 				const appData = JSON.parse(event.dataTransfer.getData('application/reactflow'));
 				const type = appData?.nodeType;
 
-				// check if the dropped element is valid
 				if (typeof type === 'undefined' || !type) {
 					return;
 				}
@@ -94,7 +90,7 @@ export const PipelineUI = () => {
 		<>
 			<div
 				ref={reactFlowWrapper}
-				style={{width: '100wv', height: '70vh'}}>
+				style={{width: '100wv', height: '80vh'}}>
 				<ReactFlow
 					nodes={nodes}
 					edges={edges}
@@ -109,7 +105,7 @@ export const PipelineUI = () => {
 					snapGrid={[gridSize, gridSize]}
 					connectionLineType='smoothstep'>
 					<Background
-						color='#aaa'
+						color={isDarkMode ? '#aaafff' : '#222'}
 						gap={gridSize}
 					/>
 					<Controls />

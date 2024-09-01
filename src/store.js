@@ -52,3 +52,11 @@ export const useStore = create((set, get) => ({
       });
     },
   }));
+
+
+export const useThemeStore = create((set, get) => ({
+	isDarkMode: false,
+	setIsDarkMode: isDark => {
+		set({isDarkMode: isDark});
+	}
+}));

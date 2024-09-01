@@ -1,8 +1,10 @@
 // BaseNode.js
 import React from 'react';
 import {Handle, Position} from 'reactflow';
+import {useThemeStore} from '../store';
 
 export const BaseNode = ({id, data, type, handles = []}) => {
+	const {isDarkMode} = useThemeStore();
 	const handleStyles = {
 		background: '#555',
 		width: '10px',
@@ -21,8 +23,8 @@ export const BaseNode = ({id, data, type, handles = []}) => {
 				border: '1px solid black',
 				padding: '10px',
 				position: 'relative',
-				borderRadius: '5px',
-				background: '#f9f9f9'
+				borderRadius: '10px',
+				background: isDarkMode ? '#c8b6fffa' : '#f9f9f9'
 			}}>
 			<div style={{marginBottom: '10px', fontWeight: 'bold'}}>{data.label}</div>
 			<div>{data.content}</div>
@@ -42,7 +44,13 @@ export const BaseNode = ({id, data, type, handles = []}) => {
 						position={handle.position}
 						id={handle.id}
 						style={{margin: '10px', display: 'flex', alignItems: 'center', justifyContent: 'end'}}>
-						{handle.title && <span style={{fontSize: '12px', marginRight: '10px', color: '#000000'}}>{handle.title}</span>}
+						{handle.title && (
+							<span
+								className={`${isDarkMode ? 'text-white' : 'text-black'}`}
+								style={{fontSize: '12px', marginRight: '10px'}}>
+								{handle.title}
+							</span>
+						)}
 					</Handle>
 				</div>
 			))}

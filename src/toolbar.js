@@ -1,11 +1,12 @@
 // toolbar.js
 
+import DarkModeToggle from './darkMode';
 import {DraggableNode} from './draggableNode';
 
 export const PipelineToolbar = () => {
 	return (
-		<div style={{padding: '10px'}}>
-			<div style={{marginTop: '20px', display: 'flex', flexWrap: 'wrap', gap: '10px'}}>
+		<div className='p-4 flex mt-4 justify-between items-center'>
+			<div className='flex wrap gap-3 '>
 				<DraggableNode
 					type='customInput'
 					label='Input'
@@ -43,6 +44,7 @@ export const PipelineToolbar = () => {
 					label='Visual'
 				/>
 			</div>
+			<DarkModeToggle />
 		</div>
 	);
 };
